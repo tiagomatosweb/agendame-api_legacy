@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -14,6 +15,7 @@ class RegisterController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
+        $input['token'] = Str::uuid();
         $user = User::query()->create($input);
 
         UserRegistered::dispatch($user);
