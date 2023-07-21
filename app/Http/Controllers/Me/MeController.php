@@ -10,6 +10,8 @@ class MeController extends Controller
 {
     public function show()
     {
-        return new UserResource(auth()->user());
+        $user = auth()->user();
+        $user->loadMissing('roles');
+        return new UserResource($user);
     }
 }
