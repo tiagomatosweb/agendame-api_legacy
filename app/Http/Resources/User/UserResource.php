@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'has_subscription' => $this->hasSubscription(),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => $this->getPermissions()
+            'permissions' => $this->getAllPermissions()->pluck('name')
         ];
     }
 }
